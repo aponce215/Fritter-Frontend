@@ -1,6 +1,9 @@
 import type {Request, Response} from 'express';
 import express from 'express';
 import FreetCollection from '../freet/collection';
+import ProfileCollection from '../profile/collection';
+import ShareTimeCollection from '../shareTime/collection';
+import BenevolenceCollection from '../benevolence/collection';
 import UserCollection from './collection';
 import * as userValidator from '../user/middleware';
 import * as util from './util';
@@ -54,6 +57,7 @@ router.post(
     const user = await UserCollection.findOneByUsernameAndPassword(
       req.body.username, req.body.password
     );
+    ShareTimeCollection.updateLogIn(user._id);
     req.session.userId = user._id.toString();
     res.status(201).json({
       message: 'You have logged in successfully',
@@ -77,6 +81,7 @@ router.delete(
     userValidator.isUserLoggedIn
   ],
   (req: Request, res: Response) => {
+    ShareTimeCollection.updateLogout(req.session.userId);
     req.session.userId = undefined;
     res.status(200).json({
       message: 'You have been logged out successfully.'
@@ -107,6 +112,10 @@ router.post(
   ],
   async (req: Request, res: Response) => {
     const user = await UserCollection.addOne(req.body.username, req.body.password);
+    await ProfileCollection.addOne(user._id, user.username);
+    await BenevolenceCollection.addOne(user._id);
+    await ShareTimeCollection.addOne(user._id); 
+    await ShareTimeCollection.updateLogIn(user._id);
     req.session.userId = user._id.toString();
     res.status(201).json({
       message: `Your account was created successfully. You have been logged in as ${user.username}`,
@@ -162,6 +171,10 @@ router.delete(
     const userId = (req.session.userId as string) ?? ''; // Will not be an empty string since its validated in isUserLoggedIn
     await UserCollection.deleteOne(userId);
     await FreetCollection.deleteMany(userId);
+    await ProfileCollection.deleteOne(userId);
+    await ShareTimeCollection.deleteOne(userId);
+    await BenevolenceCollection.deleteOne(userId);
+    
     req.session.userId = undefined;
     res.status(200).json({
       message: 'Your account has been deleted successfully.'
