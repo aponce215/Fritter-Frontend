@@ -6,9 +6,12 @@
     class="freet"
   >
     <header>
-      <h3 class="author">
-        @{{ freet.author }}
-      </h3>
+      <router-link
+        class = "author"
+        :to= "`/profile/${freet.author}`"
+      >
+        @{{ freet.author}}
+      </router-link>
       <div
         v-if="$store.state.username === freet.author"
         class="actions"
@@ -17,7 +20,7 @@
           v-if="editing"
           @click="submitEdit"
         >
-          ✅ Save changes
+          ☑️ Save changes
         </button>
         <button
           v-if="editing"
@@ -161,7 +164,7 @@ export default {
         this.$set(this.alerts, e, 'error');
         setTimeout(() => this.$delete(this.alerts, e), 3000);
       }
-    }
+    },
   }
 };
 </script>
@@ -172,4 +175,5 @@ export default {
     padding: 20px;
     position: relative;
 }
+
 </style>

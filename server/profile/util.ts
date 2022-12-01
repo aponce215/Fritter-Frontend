@@ -24,7 +24,7 @@ const formatDate = (date: Date): string => moment(date).format('MMMM Do YYYY, h:
  * with all the information needed by the frontend
  *
  * @param {HydratedDocument<Freet>} profile - A profile
- * @returns {BenevolenceResponse} - The freet object formatted for the frontend
+ * @returns {ProfileResponse} - The freet object formatted for the frontend
  */
 const constructProfileResponse = (profile: HydratedDocument<Profile>): ProfileResponse => {
   const profileCopy: PopulatedProfile = {
@@ -53,7 +53,7 @@ const constructProfileResponse = (profile: HydratedDocument<Profile>): ProfileRe
  * with all the information needed by the frontend
  *
  * @param {HydratedDocument<Freet>} profile - A profile
- * @returns {BenevolenceResponse} - The freet object formatted for the frontend
+ * @returns {ProfileResponse} - The freet object formatted for the frontend
  */
  const constructMyProfileResponse = (profile: HydratedDocument<Profile>): ProfileResponse => {
     const profileCopy: PopulatedProfile = {

@@ -16,6 +16,7 @@ type MyShareTimeResponse = {
     lastWeekly: string;
     currentDaily: string;
     currentWeekly: string;
+    currentWeekday: string;
     trend: string;
 };
 
@@ -87,6 +88,7 @@ const constructShareTimeResponse = (shareTime: HydratedDocument<ShareTime>): Sha
       lastWeekly: shareTimeCopy.lastWeekly.toString(),
       currentDaily: shareTimeCopy.currentDaily.toString(),
       currentWeekly: shareTimeCopy.currentWeekly.toString(),
+      currentWeekday: shareTimeCopy.currentWeekday.toString(),
       trend: (shareTimeCopy.trend == -1 ) ? "decreasing" : (shareTimeCopy.trend == 1) ? "increasing" : "stable",
     };
   };

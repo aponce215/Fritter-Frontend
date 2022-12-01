@@ -16,6 +16,24 @@
       </router-link>
       <router-link
         v-if="$store.state.username"
+        to="/lookup"
+      >
+        🔍 LookUp
+      </router-link>
+      <router-link
+        v-if="$store.state.username"
+        :to= "`/profile/${$store.state.username}`"
+      >
+        Profile
+      </router-link>
+      <router-link
+        v-if="$store.state.username"
+        to= "/benevolence/"
+      >
+        Benevolence
+      </router-link>
+      <router-link
+        v-if="$store.state.username"
         to="/account"
       >
         Account
@@ -42,7 +60,7 @@
 <style scoped>
 nav {
     padding: 1vw 2vw;
-    background-color: #ccc;
+    background-color: #8BE8CB;
     display: flex;
     justify-content: space-between;
     align-items: center;

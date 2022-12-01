@@ -14,6 +14,15 @@ const store = new Vuex.Store({
     username: null, // Username of the logged in user
     alerts: {} // global success/error messages encountered during submissions to non-visible forms
   },
+  getters:{
+    /**
+     * Get freets with specific name
+     * @param user - username to filter by
+     */
+    userFreets: (state) => (user) =>{
+      return state.freets.filter(f => (f.author === user));
+    }
+  },
   mutations: {
     alert(state, payload) {
       /**

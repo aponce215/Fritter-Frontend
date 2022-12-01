@@ -3,7 +3,7 @@
     <header>
       <NavBar />
     </header>
-    <router-view />
+    <router-view :key="$route.path"/>
   </div>
 </template>
 
