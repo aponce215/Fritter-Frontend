@@ -11,7 +11,8 @@
                 </p>
                 <p v-if = "nominated.length == 0">
                     Nominate someone by going to their profile and 
-                    clicking on benevolence to vote for them
+                    clicking on benevolence to vote for them. You can only nominate
+                    3 users, so choose wisely!
                 </p>
             </header>
             <div class = "link" v-if = "nominated.length > 0">
